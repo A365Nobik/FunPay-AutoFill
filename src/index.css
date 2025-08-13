@@ -1,0 +1,13 @@
+@import "tailwindcss";
+* {
+  --bg-primary: #1a1c1f;
+  --bg-secondary: #2a2d32;
+  --text-primary: #f0f6fc;
+  --text-secondary: #ebeceeb6;
+  --border-color: var(--text-primary);
+}
+#root{
+    ::-webkit-scrollbar{
+        width: 0;
+    }
+}
