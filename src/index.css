@@ -1,4 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&display=swap");
 @import "tailwindcss";
+
+@theme {
+  --font-cascadia: Cascadia Code;
+  --animate-summon-right: summon-right 1s ease ;
+  @keyframes summon-right {
+  0% {
+    transform: translateX(50px);
+  }
+  100% {
+    transform: translateX(-4px);
+  }
+}
+
+}
+
 * {
   --bg-primary: #1a1c1f;
   --bg-secondary: #2a2d32;
@@ -6,8 +22,7 @@
   --text-secondary: #ebeceeb6;
   --border-color: var(--text-primary);
 }
-#root{
-    ::-webkit-scrollbar{
-        width: 0;
-    }
+
+::-webkit-scrollbar {
+  width: 0;
 }
