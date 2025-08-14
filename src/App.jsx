@@ -130,6 +130,7 @@ export default function App() {
     },
     [chrome, setIsSaved]
   );
+
   const handleResetClick = async (event) => {
     event.preventDefault();
     ModalFunctions.handleModal(
@@ -154,69 +155,131 @@ export default function App() {
     <>
       <div
         id="wrapp"
-        className="relative flex flex-col justify-center items-center gap-1 bg-[var(--bg-primary)] text-[var(--text-primary)] font-cascadia text-[16px]"
+        className="relative flex flex-col justify-center items-center gap-4 bg-gradient-to-br from-[var(--bg-primary)] via-[var(--bg-secondary)] to-[var(--bg-primary)] text-[var(--text-primary)] font-inter min-h-screen p-6"
       >
-        <form
-          ref={formRef}
-          className="w-full flex flex-col justify-center items-center gap-1 p-1"
-        >
-          <div
-            className={`w-full flex ${
-              !isItems ? "justify-start" : "justify-between"
-            } items-center gap-2`}
+        {/* Header с градиентом */}
+        <div className="w-full max-w-4xl text-center mb-6 animate-slide-up">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-[var(--text-primary)] to-[var(--text-secondary)] bg-clip-text text-transparent mb-2">
+            FunPay Auto Fill
+          </h1>
+          <p className="text-[var(--text-muted)] text-sm">
+            Автоматическое заполнение форм для карточек товаров
+          </p>
+        </div>
+
+        {/* Основная форма */}
+        <div className="w-full max-w-4xl glass rounded-2xl p-8 shadow-2xl animate-fade-in">
+          <form
+            ref={formRef}
+            className="w-full flex flex-col justify-center items-center gap-6"
           >
-            <Span>
-              <label htmlFor="fields[type]">Тип предложения:</label>
-              <Select
-                id="fields[type]"
-                name="fields[type]"
-                setIsItems={setIsItems}
-                options={typeOpts}
-              />
-            </Span>
-            <span
-              className={`flex justify-center items-center gap-1 ${
-                !isItems ? "ml-7.75" : null
-              } text-2xl`}
-            >
-              <IoMdPower
-                onClick={changeActive}
-                className={`${
-                  isActive ? "text-green-500" : "text-[var(--bg-secondary)]"
-                }`}
-              />
-              <IoMdSettings />
-            </span>
-            <Span hidden={!isItems}>
-              <label htmlFor="fields[method]">Способ получения:</label>
-              <Select
-                name="fields[method]"
-                id="fields[method]"
-                options={getting}
-              />
-            </Span>
+            {/* Верхняя секция с селектами */}
+            <div className="w-full flex flex-col lg:flex-row justify-between items-center gap-6 p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+              <Span variant="primary" className="flex-1">
+                <Select
+                  id="fields[type]"
+                  name="fields[type]"
+                  setIsItems={setIsItems}
+                  options={typeOpts}
+                  label="Тип предложения"
+                />
+              </Span>
+
+              {/* Кнопки управления */}
+              <div className="flex items-center gap-4">
+                <button
+                  type="button"
+                  onClick={changeActive}
+                  className={`
+                    p-3 rounded-xl transition-all duration-300 ease-out hover-lift
+                    ${
+                      isActive
+                        ? "bg-gradient-to-r from-[var(--bg-success)] to-[#047857] text-white shadow-lg animate-pulse-glow"
+                        : "bg-[var(--bg-tertiary)] text-[var(--text-muted)] hover:bg-[var(--bg-secondary)]"
+                    }
+                  `}
+                  title={
+                    isActive ? "Расширение активно" : "Расширение неактивно"
+                  }
+                >
+                  <IoMdPower className="text-2xl" />
+                </button>
+
+                <button
+                  type="button"
+                  className="p-3 rounded-xl bg-[var(--bg-secondary)] text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)] transition-all duration-200 ease-out hover-lift"
+                  title="Настройки"
+                >
+                  <IoMdSettings className="text-2xl" />
+                </button>
+              </div>
+
+              <Span variant="default" className="flex-1" hidden={!isItems}>
+                <Select
+                  name="fields[method]"
+                  id="fields[method]"
+                  options={getting}
+                  label="Способ получения"
+                />
+              </Span>
+            </div>
+
+            {/* Разделитель */}
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-[var(--border-color)] to-transparent"></div>
+
+            {/* Текстовые поля */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 justify-center items-start gap-6 w-full">
+              {Object.entries(textAreaProps).map((prop, idx) => (
+                <TextArea
+                  key={idx}
+                  label={prop[1]}
+                  name={prop[0]}
+                  placeholder={`Введите ${prop[1].toLowerCase()}...`}
+                />
+              ))}
+            </div>
+
+            {/* Кнопки действий */}
+            <div className="w-full flex flex-col sm:flex-row justify-around items-center gap-4 pt-4">
+              <Button
+                variant="success"
+                size="lg"
+                onClick={saveData}
+                className="flex-1 max-w-xs"
+              >
+                💾 Сохранить
+              </Button>
+              <Button
+                variant="danger"
+                size="lg"
+                onClick={handleResetClick}
+                className="flex-1 max-w-xs"
+              >
+                🔄 Сбросить
+              </Button>
+            </div>
+          </form>
+        </div>
+
+        {/* Статусные сообщения */}
+        {isSaved && (
+          <div className="fixed top-4 right-4 animate-slide-up">
+            <SavedMsg />
           </div>
-          <hr className="w-full" />
-          <div className="grid grid-cols-2 justify-center items-start gap-2">
-            {Object.entries(textAreaProps).map((prop, idx) => (
-              <TextArea key={idx} label={prop[1]} name={prop[0]} />
-            ))}
+        )}
+        {isReseted && (
+          <div className="fixed top-4 right-4 animate-slide-up">
+            <ResetedMsg />
           </div>
-          <div className=" w-full flex justify-around items-center">
-            <Button bgColor={"bg-green-700"} onClick={saveData}>
-              Сохранить
-            </Button>
-            <Button bgColor={"bg-red-800"} onClick={handleResetClick}>
-              Сбросить
-            </Button>
-          </div>
-        </form>
+        )}
       </div>
-      {isConfirmModal ? (
+
+      {/* Модальное окно подтверждения */}
+      {isConfirmModal && (
         <ResetConfirm scale={confirmModalScale}>
-          <div className="flex justify-center items-center gap-1">
-            <Button onClick={resetFields} bgColor={"bg-red-800"}>
-              Сбросить
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <Button onClick={resetFields} variant="danger" size="md">
+              🔄 Сбросить
             </Button>
             <Button
               onClick={() =>
@@ -227,15 +290,14 @@ export default function App() {
                   null
                 )
               }
-              bgColor={"bg-[var(--bg-primary)]"}
+              variant="ghost"
+              size="md"
             >
-              Назад
+              ← Назад
             </Button>
           </div>
         </ResetConfirm>
-      ) : null}
-      {isSaved ? <SavedMsg /> : null}
-      {isReseted ? <ResetedMsg /> : null}
+      )}
     </>
   );
 }

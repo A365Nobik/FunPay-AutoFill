@@ -1,15 +1,41 @@
-export default function TextArea({ label, name }) {
-  const textAreaClass =
-    "bg-[var(--bg-secondary)] border-2 rounded-md w-80 resize-none h-25 outline-0 transition-colors focus:border-blue-500";
+export default function TextArea({ label, name, placeholder = "" }) {
   return (
-    <span className="flex flex-col justify-center items-start">
-      <label className="w-80" htmlFor={name}>{label}</label>
+    <div className="flex flex-col justify-center items-start space-y-2 animate-fade-in">
+      <label
+        className="text-sm font-medium text-[var(--text-secondary)] uppercase tracking-wide"
+        htmlFor={name}
+      >
+        {label}
+      </label>
       <textarea
         name={name}
-        className={textAreaClass}
         id={name}
-        type="text"
+        placeholder={placeholder}
+        className="
+          bg-[var(--bg-secondary)] 
+          border-2 
+          border-[var(--border-color)] 
+          rounded-xl 
+          w-80 
+          h-25 
+          resize-none 
+          outline-none 
+          transition-all 
+          duration-200 
+          ease-out
+          px-4 
+          py-3
+          text-[var(--text-primary)]
+          placeholder-[var(--text-muted)]
+          focus:border-[var(--border-accent)]
+          focus:ring-2
+          focus:ring-[var(--border-accent)]
+          focus:ring-opacity-20
+          hover:border-[var(--bg-tertiary)]
+          shadow-md
+          hover:shadow-lg
+        "
       />
-    </span>
+    </div>
   );
 }
