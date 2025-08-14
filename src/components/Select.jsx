@@ -1,8 +1,7 @@
 import { memo, useCallback } from "react";
+import { optClass } from "../constants/classes";
 
 const Select = memo(({ options, setIsItems, ...props }) => {
-  const optClass = "bg-[var(--bg-secondary)] rounded-md";
-
   const handelSelctChange = useCallback(
     (event) => {
       const value = event.target.value;

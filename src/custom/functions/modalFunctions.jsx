@@ -1,5 +1,5 @@
 class ModalFunctionsClass {
-  closeModal(setScale, modalState, setModalState) {
+  handleModal(setScale, modalState, setModalState) {
     if (modalState) {
       setScale(0);
       setTimeout(() => {
@@ -7,6 +7,8 @@ class ModalFunctionsClass {
       }, 300);
     } else {
       setModalState(true);
+      document.body.classList.add("overflow-x-hidden");
+      document.body.classList.add("overflow-y-hidden");
       setTimeout(() => {
         setScale(100);
       }, 300);

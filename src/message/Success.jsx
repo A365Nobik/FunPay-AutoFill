@@ -3,14 +3,13 @@ import { useRef, useEffect } from "react";
 
 export default function Success() {
   const divRef = useRef(null);
-
   useEffect(() => {
     const timer = setTimeout(() => {
       const div = divRef.current;
       if (div) {
         div.classList.add("-translate-x-120");
       }
-    }, 3500);
+    }, 2000);
     return () => clearTimeout(timer);
   }, [divRef]);
   return createPortal(
@@ -21,6 +20,6 @@ export default function Success() {
     >
       <h1 className="text-lg">Сохранено</h1>
     </div>,
-    document.querySelector("#root")
+    document.body
   );
 }
