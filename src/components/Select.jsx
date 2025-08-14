@@ -1,6 +1,6 @@
 import { memo, useCallback } from "react";
 
-const Select = memo(({ options, setIsItems, name }) => {
+const Select = memo(({ options, setIsItems, ...props }) => {
   const optClass = "bg-[var(--bg-secondary)] rounded-md";
 
   const handelSelctChange = useCallback(
@@ -17,10 +17,9 @@ const Select = memo(({ options, setIsItems, name }) => {
 
   return (
     <select
-      className="bg-[var(--bg-secondary)] w-25 rounded-md"
+      className="bg-[var(--bg-secondary)] w-25 rounded-md border-2 transition-colors focus:border-blue-500 outline-0"
       onChange={setIsItems ? handelSelctChange : null}
-      name={name}
-      id={name}
+      {...props}
     >
       <option className="bg-[var(--bg-primary)]" value=""></option>
       {options.map((opt, idx) => (

@@ -9,6 +9,9 @@ const elements = {
   "fields[payment_msg][en]": document.getElementsByName(
     "fields[payment_msg][en]"
   )[0],
+  "method-wrapper": document.getElementsByClassName(
+    "form-group lot-field hidden"
+  )[0],
 };
 
 const fiilFields = (fileds, values) => {
@@ -18,6 +21,7 @@ const fiilFields = (fileds, values) => {
 };
 
 (async () => {
+  elements["method-wrapper"].classList.remove("hidden");
   if (window.chrome?.storage?.local) {
     const { autoFillData } = await window.chrome.storage.local.get(
       "autoFillData"

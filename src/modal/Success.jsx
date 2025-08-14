@@ -6,24 +6,20 @@ export default function Success() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (divRef.current) {
-        divRef.current.classList.add("scale-0");
-        divRef.current.classList.add("opacity-0");
+      const div = divRef.current;
+      if (div) {
+        div.classList.add("-translate-x-120");
       }
-    }, 2500);
+    }, 3500);
     return () => clearTimeout(timer);
   }, [divRef]);
   return createPortal(
     <div
       ref={divRef}
-      className={`absolute animate-summon-right right-1 top-1/12 flex justify-center items-center text-[var(--text-primary)] font-cascadia transition-all duration-300`}
+      id="success"
+      className="absolute animate-summon-right right-1 top-1/12 flex justify-center items-center bg-[var(--bg-primary)] p-1 rounded-md border-1 transition-all duration-300 text-[var(--text-primary)] font-cascadia"
     >
-      <div
-        id="success"
-        className="flex flex-col justify-center items-center bg-[var(--bg-primary)] p-1 rounded-md border-1"
-      >
-        <h1 className="text-lg">Сохранено</h1>
-      </div>
+      <h1 className="text-lg">Сохранено</h1>
     </div>,
     document.querySelector("#root")
   );
