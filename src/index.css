@@ -3,7 +3,7 @@
 
 @theme {
   --font-cascadia: Cascadia Code;
-  --animate-summon-right: summon-right 1s ease ;
+  --animate-summon-right: summon-right 1s;
   @keyframes summon-right {
   0% {
     transform: translateX(50px);

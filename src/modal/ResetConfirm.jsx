@@ -1,7 +1,9 @@
 import { createPortal } from "react-dom";
 import { Button } from "../components";
+import { ModalFunctions } from "../custom/functions/modalFunctions";
+import { Children } from "react";
 
-export default function ResetConfirm({ scale }) {
+export default function ResetConfirm({ scale ,children}) {
   return createPortal(
     <div
       className={`absolute top-1/2 -translate-y-1/2 w-full h-full flex justify-center items-center bg-black/90 text-[var(--text-primary)] font-cascadia transition-all duration-300 ease-in-out ${
@@ -12,12 +14,9 @@ export default function ResetConfirm({ scale }) {
         <h1 className="text-lg w-80 text-center">
           Вы действительно хотите сбросить поля?
         </h1>
-        <div className="flex justify-center items-center gap-1">
-          <Button bgColor={"bg-red-800"}>Сбросить</Button>
-          <Button bgColor={"bg-[var(--bg-primary)]"}>Назад</Button>
-        </div>
+        {children}
       </div>
     </div>,
-    document.querySelector("form")
+    document.querySelector("#wrapp")
   );
 }

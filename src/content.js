@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const elements = {
   "fields[type]": document.getElementsByName("fields[type]")[0],
   "fields[method]": document.getElementsByName("fields[method]")[0],
@@ -21,14 +22,20 @@ const fiilFields = (fileds, values) => {
 };
 
 (async () => {
-  elements["method-wrapper"].classList.remove("hidden");
-  if (window.chrome?.storage?.local) {
-    const { autoFillData } = await window.chrome.storage.local.get(
-      "autoFillData"
-    );
-    fiilFields(elements, autoFillData);
+  const chromeStorage = chrome.storage.local;
+  const { isActive } = await chromeStorage.get("isActive");
+  if (isActive===true) {
+    elements["method-wrapper"].classList.remove("hidden");
+    if (window.chrome?.storage?.local) {
+      const { autoFillData } = await window.chrome.storage.local.get(
+        "autoFillData"
+      );
+      fiilFields(elements, autoFillData);
+    } else {
+      const autoFillData = JSON.parse(localStorage.getItem("autoFillData"));
+      fiilFields(elements, autoFillData);
+    }
   } else {
-    const autoFillData = JSON.parse(localStorage.getItem("autoFillData"));
-    fiilFields(elements, autoFillData);
+    return;
   }
 })();

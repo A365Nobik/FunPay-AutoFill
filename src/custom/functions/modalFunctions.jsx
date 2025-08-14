@@ -15,8 +15,17 @@ class ModalFunctionsClass {
     }
   }
   closeModalClick(closests, setScale, setModalState, event) {
-    const isOutClosest = closests.every((clst) => !event.target.closest(clst));
-    if (isOutClosest) {
+    if (closests && Array.isArray(closests) && event) {
+      const isOutClosest = closests.every(
+        (clst) => !event.target.closest(clst)
+      );
+      if (isOutClosest) {
+        setScale(0);
+        setTimeout(() => {
+          setModalState(false);
+        }, 300);
+      }
+    } else {
       setScale(0);
       setTimeout(() => {
         setModalState(false);
