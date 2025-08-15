@@ -6,7 +6,7 @@ import { Children } from "react";
 export default function ResetConfirm({ scale ,children}) {
   return createPortal(
     <div
-      className={`absolute top-1/2 -translate-y-1/2 w-full h-full flex justify-center items-center bg-black/90 text-[var(--text-primary)] font-cascadia transition-all duration-300 ease-in-out ${
+      className={`absolute top-1/2 -translate-y-1/2 w-full h-full flex justify-center items-center bg-black/90 text-[var(--text-primary)] font-popins transition-all duration-300 ease-in-out ${
         scale ? "scale-100 opacity-100" : "scale-95 opacity-0"
       }`}
     >

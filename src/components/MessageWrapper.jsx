@@ -16,7 +16,7 @@ export default function MessageWrapper({ message }) {
     <div
       ref={divRef}
       id="success"
-      className="absolute animate-summon-right right-1 -top-1 translate-y-2 flex justify-center items-center bg-[var(--bg-primary)] p-1 rounded-md border-1 transition-all duration-300 text-[var(--text-primary)] font-cascadia"
+      className="absolute animate-summon-right right-1 -top-1 translate-y-2 flex justify-center items-center bg-[var(--bg-primary)] p-1 rounded-md border-1 transition-all duration-300 text-[var(--text-primary)] font-popins"
     >
       <h1 className="text-[16px]">{message}</h1>
     </div>,

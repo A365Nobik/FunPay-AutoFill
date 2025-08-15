@@ -16,7 +16,7 @@ const Select = memo(({ options, setIsItems, ...props }) => {
 
   return (
     <select
-      className="bg-[var(--bg-secondary)] w-25 rounded-md border-2 transition-colors focus:border-blue-500 outline-0"
+      className="bg-[var(--bg-secondary)] w-25 rounded-md border-1 transition-colors focus:border-blue-500 outline-0"
       onChange={setIsItems ? handelSelctChange : null}
       {...props}
     >
